@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include "header.html" %>
+<%@ include file="header.html" %>
 <form>
 <input type="text" />
 <input type="submit" />
