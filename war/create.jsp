@@ -4,13 +4,23 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>ServerContent</title>
 </head>
 <body>
 <%@ include file="header.html" %>
+
 <form>
+<table>
+ <tr>
+  <td>
+   <input type="text" name="streamName" />
+  </td>
+ </tr>
+</table>
+
 <input type="text" />
-<input type="submit" />
+<input type="submit" value="Create Stream" />
 </form>
+<p>Content from <b>create.jsp</b></p>
 </body>
 </html>
