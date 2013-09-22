@@ -26,8 +26,8 @@
     if (user != null) {
       pageContext.setAttribute("user", user);
 %>
-<p>Hello, ${fn:escapeXml(user.nickname)}! (You can
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">sign out</a>.)</p>
+<p>Hello, ${fn:escapeXml(user.nickname)}! you are using Google Account 
+<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">${fn:escapeXml(user.email)}</a>.)</p>
 <%
     } else {
 %>
