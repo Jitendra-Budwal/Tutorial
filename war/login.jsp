@@ -28,8 +28,10 @@
 %>
 <h1>Welcome to Connexus</h1>
 <h2>Share the world!</h2>
-<p>Hello, ${fn:escapeXml(user.nickname)}! you are signed in with your Google Acoount
-<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">${fn:escapeXml(user.email)}</a>.)</p>
+<p>Hello, ${fn:escapeXml(user.nickname)}! you are signed in with your
+ Google Acoount ${fn:escapeXml(user.email)} to use a different account 
+<a href="<%= userService.createLogoutURL(request.getRequestURI()) %>">click here</a>
+or <a href="header.html">Continue</a></p>
 <%
     } else {
 %>
