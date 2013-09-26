@@ -15,10 +15,11 @@
 <%
 		List<Stream> th = OfyService.ofy().load().type(Stream.class).list();
 		Collections.sort(th);
+		System.out.println("ViewAllStreams.jsp: th count = " + th.size());
 		for (Stream s : th ) {
 		  // APT: calls to System.out.println go to the console, calls to out.println go to the html returned to browser
 		  // the line below is useful when debugging (jsp or servlet)
-		  System.out.println("s = " + s);
+		  System.out.println("ViewAllStreams.jsp: s = " + s);
 		  %>
 		  <tr><td> <img width="100" height="100" src="<%= s.coverImageUrl %>"> </td> 
 		  <td><a href="ShowStream.jsp?streamId=<%= s.id %>&streamName=<%= s.name %>"> <%= s.name %></a></td><tr>

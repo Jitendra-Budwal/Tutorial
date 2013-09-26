@@ -26,9 +26,12 @@
 		System.out.println("ShowStream.jsp: images count = " + images.size());
 		Collections.sort(images);
 		for ( ConnexusImage img : images ) {
-//		    if ( img.streamId.equals(streamId) ) {
-     		  out.println("<img src=\"" + img.bkUrl + "=s100\">"); // better to not use println for html output, use templating instead
-//     		}
+		    if ( img.streamId.equals(streamId) ) {
+		    	
+		    	
+		    	out.println("<a href=\""+img.bkUrl+"\"><img src=\"" + img.bkUrl +"=s100\"></a>"); // better to not use println for html output, use templating instead
+     		}
+		    System.out.println("ShowStream.jsp: streamId = " + img.streamId + " ; " + streamId);
      	 }
 %>
 
