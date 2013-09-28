@@ -5,6 +5,7 @@ import java.util.Date;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 import com.google.common.base.Joiner;
 import com.googlecode.objectify.ObjectifyFactory;
 
@@ -18,8 +19,10 @@ public class Stream implements Comparable<Stream> {
 	@Id
 	public Long id;
 	public String name;
+	public String owner;
+	public Long imageCount;
 	public String tags;
-	public Date createDate;
+	@Index public Date createDate;
 	public String coverImageUrl;
   
 	// TODO: figure out why this is needed
@@ -30,7 +33,7 @@ public class Stream implements Comparable<Stream> {
 	@Override
 	public String toString() {
 		Joiner joiner = Joiner.on(":");
-		return joiner.join(id.toString(), name, tags, createDate.toString());
+		return joiner.join(id.toString(), name, owner, imageCount, tags, createDate.toString());
  	}
 
 	public Stream(String name, String tags, String coverImageUrl) {
@@ -38,6 +41,19 @@ public class Stream implements Comparable<Stream> {
 		this.tags = tags;
 		this.coverImageUrl = coverImageUrl;
 		this.createDate = new Date();
+	}
+
+	public Stream(String name, String tags, String coverImageUrl, String owner, Long imageCount) {
+		this.name = name;
+		this.tags = tags;
+		this.coverImageUrl = coverImageUrl;
+		this.owner = owner;
+		this.imageCount = imageCount;
+		this.createDate = new Date();
+	}
+
+	public void incCount() {
+		imageCount++;
 	}
 
 	@Override

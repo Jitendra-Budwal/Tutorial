@@ -7,6 +7,7 @@ import com.google.common.base.Joiner;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
+import com.googlecode.objectify.annotation.Index;
 
 @Entity
 public class ConnexusImage implements Comparable<ConnexusImage> {
@@ -16,7 +17,7 @@ public class ConnexusImage implements Comparable<ConnexusImage> {
 	public Long streamId;
 	public String comments;
 	public String bkUrl;
-	public Date createDate;
+	@Index public Date createDate;
 
 	@SuppressWarnings("unused")
 	private ConnexusImage() {

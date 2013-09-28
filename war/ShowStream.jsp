@@ -21,17 +21,21 @@
 //		System.out.println("streamId = " + streamId);
 		String streamName = request.getParameter("streamName");
 //		System.out.println("streamName = " + streamName);
-		out.println(streamName);
-		List<ConnexusImage> images = OfyService.ofy().load().type(ConnexusImage.class).list();
-		System.out.println("ShowStream.jsp: images count = " + images.size());
-		Collections.sort(images);
+		out.println("<H1>"+streamName+"</H1>");
+		List<ConnexusImage> images = OfyService.ofy().load().type(ConnexusImage.class).order("-createDate").list();
+//		System.out.println("ShowStream.jsp: images count = " + images.size());
+		Collections.reverse(images);
 		for ( ConnexusImage img : images ) {
 		    if ( img.streamId.equals(streamId) ) {
 		    	
-		    	
-		    	out.println("<a href=\""+img.bkUrl+"\"><img src=\"" + img.bkUrl +"=s100\"></a>"); // better to not use println for html output, use templating instead
+		    	out.println(
+		    			"<a href=\""+img.bkUrl+"\"><img src=\"" + img.bkUrl +"=s100\"></a>"  +
+		    			"<p> " + img.createDate.toString() + " </p>"
+		    			); 
+		    	// better to not use println for html output, use templating instead
+		  
      		}
-		    System.out.println("ShowStream.jsp: streamId = " + img.streamId + " ; " + streamId);
+//		    System.out.println("ShowStream.jsp: streamId = " + img.streamId + " ; " + streamId + " ; " + img.createDate);
      	 }
 %>
 

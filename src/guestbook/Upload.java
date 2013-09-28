@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.blobstore.BlobKey;
 import com.google.appengine.api.blobstore.BlobstoreService;
 import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-
 import com.google.appengine.api.images.ImagesService;
 import com.google.appengine.api.images.ImagesServiceFactory;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
+import com.googlecode.objectify.ObjectifyService;
 
 public class Upload extends HttpServlet {
 	private BlobstoreService blobstoreService = BlobstoreServiceFactory
@@ -43,10 +46,16 @@ public class Upload extends HttpServlet {
 		String streamName = req.getParameter("streamName");
 		// at a later day we might allow for tags on a per image basis
 		String content = "dummy content";
-
-		ConnexusImage s = new ConnexusImage(streamId, streamName, content,
+	    UserService userService = UserServiceFactory.getUserService();
+	    User user = userService.getCurrentUser();
+//	    Stream s = OfyService.ofy().load().type(Stream.class).id(streamId);
+	    Stream s = ObjectifyService.ofy().load().type(Stream.class).id(streamId).get();
+//	    System.out.println("Upload.java: imageCount = " + s.imageCount);
+	    s.incCount();
+	    ofy().save().entities(s).now();
+		ConnexusImage img = new ConnexusImage(streamId, streamName, content,
 				bkUrl);
-		ofy().save().entity(s).now();
+		ofy().save().entity(img).now();
 		// after the creation of the image is complete we want to return to the
 		// stream that it was added to
 		// we use the streamId as an argument to the ShowStream jsp
