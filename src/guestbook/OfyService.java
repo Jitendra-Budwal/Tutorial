@@ -11,6 +11,7 @@ public class OfyService {
     	factory().register(Stream.class);
     	factory().register(Greeting.class);
     	factory().register(ConnexusImage.class);
+    	factory().register(Transactions.class);
     }
 
     public static Objectify ofy() {

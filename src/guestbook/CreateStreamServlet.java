@@ -19,8 +19,9 @@ public class CreateStreamServlet extends HttpServlet {
 	    UserService userService = UserServiceFactory.getUserService();
 	    User user = userService.getCurrentUser();
 	    Long imageCount = new Long(0);
+	    Long viewCount = new Long(0);
 		Stream s = new Stream(req.getParameter("streamName"),
-				req.getParameter("tags"), req.getParameter("url"), user.toString(), imageCount);
+				req.getParameter("tags"), req.getParameter("url"), user.toString(), imageCount, viewCount);
 		// persist to datastore
 		ofy().save().entity(s).now();
 		resp.sendRedirect("/ViewAllStreams.jsp");

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page import="guestbook.Stream" %>
+<%@ page import="guestbook.Transactions" %>
 <%@ page import="guestbook.ConnexusImage" %>
 <%@ page import="guestbook.OfyService" %>
 <%@ page import="java.util.List" %>
@@ -13,12 +14,18 @@
 
 <html>
   <body>
+   <%@ include file="/header.html" %>
     
 <%
 		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
 //System.out.println("streamId = " + request.getParameter("streamId"));
 		Long streamId = new Long(request.getParameter("streamId"));
 //		System.out.println("streamId = " + streamId);
+		Stream stream = OfyService.ofy().load().type(Stream.class).id(streamId).get();
+		stream.incViewCount();
+		OfyService.ofy().save().entity(stream).now();   // synchronous
+		Transactions transact = new Transactions(null, stream.getKey());
+		OfyService.ofy().save().entity(transact);
 		String streamName = request.getParameter("streamName");
 //		System.out.println("streamName = " + streamName);
 		out.println("<H1>"+streamName+"</H1>");

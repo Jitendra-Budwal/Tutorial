@@ -2,6 +2,7 @@ package guestbook;
 
 import java.util.Date;
 
+import com.googlecode.objectify.Key;
 import com.googlecode.objectify.ObjectifyService;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
@@ -21,7 +22,9 @@ public class Stream implements Comparable<Stream> {
 	public String name;
 	public String owner;
 	public Long imageCount;
+	public Long viewCount;
 	public String tags;
+	@Index public Date changeDate;
 	@Index public Date createDate;
 	public String coverImageUrl;
   
@@ -36,24 +39,38 @@ public class Stream implements Comparable<Stream> {
 		return joiner.join(id.toString(), name, owner, imageCount, tags, createDate.toString());
  	}
 
-	public Stream(String name, String tags, String coverImageUrl) {
-		this.name = name;
-		this.tags = tags;
-		this.coverImageUrl = coverImageUrl;
-		this.createDate = new Date();
-	}
-
-	public Stream(String name, String tags, String coverImageUrl, String owner, Long imageCount) {
+//	public Stream(String name, String tags, String coverImageUrl) {
+//		this.name = name;
+//		this.tags = tags;
+//		this.coverImageUrl = coverImageUrl;
+//		this.createDate = new Date();
+//	}
+//
+	public Stream(String name, String tags, String coverImageUrl, String owner, Long imageCount, Long viewCount) {
 		this.name = name;
 		this.tags = tags;
 		this.coverImageUrl = coverImageUrl;
 		this.owner = owner;
 		this.imageCount = imageCount;
+		this.viewCount = viewCount;
 		this.createDate = new Date();
+	}
+
+	public void setChangeDate() {
+		changeDate = new Date();
+	}
+
+	public Key<Stream> getKey() {
+		return Key.create(Stream.class, this.id);
+	}
+	
+	public void incViewCount() {
+		viewCount++;
 	}
 
 	public void incCount() {
 		imageCount++;
+		setChangeDate();
 	}
 
 	@Override
