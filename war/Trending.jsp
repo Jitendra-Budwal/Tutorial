@@ -15,6 +15,7 @@
 <html>
   <body>
   <%@ include file="/header.html" %>
+  <div style="float:left; width 85%;" >
     <table>
 <%
 		List<Stream> th = OfyService.ofy().load().type(Stream.class).list();
@@ -47,5 +48,14 @@
 		
 
     </table>
+    </div>
+    <div style="float:right; width:15%; ">
+<form>
+<p><label class="block"><input type="radio" name="radgroup" value="A">None</label>
+<p><label class="block"><input type="radio" name="radgroup" value="B">5mins</label>
+<p><label class="block"><input type="radio" name="radgroup" value="C">1hour</label>
+<p><label class="block"><input type="radio" name="radgroup" value="D">Daily</label>
+<p><input type="submit" value="Update rate">
+</form></div>
   </body>
 </html>
